@@ -4,7 +4,7 @@
 
 MODULE Testit;
 
-IMPORT Personnel, Student, Teacher, Database, Oberon, Out;
+IMPORT Personnel, Student, Teacher, Database, Kernel, Out;
 
 PROCEDURE Run*;
 CONST
@@ -25,7 +25,7 @@ VAR
 BEGIN
 
     (* Get starting time *)
-    Start:=Oberon.Time();
+    Start:=Kernel.GetTimer();
 
     (* Create the database *)
     CS := Database.CreateDB();
@@ -71,7 +71,7 @@ BEGIN
     END;
 
     (* Get ending time *)
-    End:=Oberon.Time();
+    End:=Kernel.GetTimer();
 
     (* Report result *)
     Out.String("Run Time = ");
