@@ -1,0 +1,100 @@
+--
+-- DATABASE class
+--
+-- Implementation of the database as a linked list of PERSONNEL objects
+--
+
+class DATABASE is
+
+   file: PERSONNEL;
+   next: DATABASE;
+
+   -- Creation method
+   create:DATABASE is
+      res := new;
+   end; -- create
+
+   -- Print the database
+   print is
+      pf: $PERSONNEL;
+      tmp: DATABASE;
+      tmp := self;
+      until tmp.next=void loop
+         pf := tmp.file;
+         pf.print;
+         tmp := tmp.next;
+      end;
+   end; -- print
+
+   -- Add a file to the database
+   add(f: $PERSONNEL) is
+      tmp: DATABASE;
+      tmp := self;
+      until tmp.next=void loop
+         tmp := tmp.next;
+      end;
+      tmp.file:=f;
+      tmp.next:=new;
+   end; --add
+
+   -- Delete a file from the database
+   delete(ssn:INT) is
+      tmp: DATABASE;
+      tmp := self;
+      until tmp.next=void loop
+         if tmp.file.getssn = ssn then
+            tmp.file := tmp.next.file;
+            tmp.next := tmp.next.next;
+            return;
+         end;
+         tmp := tmp.next;
+      end;
+      OUT::s("delete: File not found"); OUT::nl;
+   end; -- delete
+
+   -- Locate a file in the database
+   locate(ssn:INT): $PERSONNEL is
+      tmp: DATABASE;
+      tmp := self;
+      until tmp.next=void loop
+         if tmp.file.getssn = ssn then
+            res := tmp.file;
+            return;
+         end;
+         tmp := tmp.next;
+      end;
+      OUT::s("locate: File not found"); OUT::nl;
+      res:=void;
+   end; -- locate
+   
+   -- Traverse the database performing operations on each object
+   traverse(numd, nums:INT): $PERSONNEL is
+      pfs:PERSONNEL;
+      pfd:$PERSONNEL;
+      tmp: DATABASE;
+      i:INT;
+      tmp := self;
+
+      until tmp.next=void loop
+
+         -- Perform dispatched operations
+         i:=0;
+         pfd := tmp.file;
+         until i=numd loop
+           pfd.void_entry;
+           i:=i+1;
+         end;
+
+         -- Perform static operations
+         i:=0;
+         pfs := tmp.file;
+         until i=nums loop
+           pfs.void_entry;
+           i:=i+1;
+         end;
+
+         tmp := tmp.next;
+      end;
+   end; -- traverse
+   
+end; -- class DATABASE

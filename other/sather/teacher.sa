@@ -1,0 +1,41 @@
+--
+-- TEACHER class
+--
+-- Implementation of teacher files
+--
+
+class TEACHER is
+   PERSONNEL;		-- Inherit from PERSONNEL files
+   salary:INT;		-- Add a salary field
+
+   -- Creation method
+   create(ssn:INT; fn,ln:STR; sal:INT):TEACHER is
+      res:=new;
+      res.ssn       := ssn;
+      res.firstname := fn;
+      res.lastname  := ln;
+      res.salary    := sal;
+   end; -- create
+
+   -- Set up an alias for the print method of personnel files
+   -- so it can be used in the teacher print method
+   alias personnel_print print;
+
+   -- Print a teacher file
+   print is 
+      self.personnel_print;
+      OUT::s("    	-- SALARY: ");
+      OUT::s("salary").nl;
+   end; -- print
+
+   -- Update a teacher salary
+   updatesalary(newsalary:INT) is
+      salary := newsalary;
+   end; -- addclass
+
+   -- Void the entry
+   void_entry is
+     valid:=0;
+   end; -- void_entry
+   
+end; -- class TEACHER

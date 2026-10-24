@@ -1,0 +1,86 @@
+--                                                        Rob Henderson
+--                                                        November 3, 1992
+--                                                        Sather Project
+--  TESTIT
+--
+--  This class contains the main routine for testing the database
+--  classes.  This project is a Sather implementation of the database
+--  project implemented in Oberon and Modula-3.
+--
+
+class TESTIT is
+
+  main is
+    cs:DATABASE:=DATABASE::create;
+    person:PERSONNEL;
+    i,j:INT;
+
+    -- Configuration Parameters
+    numIterations:INT  := 10;
+    numFiles:INT       := 500;
+    numStudents:INT    := 2;
+    numTeachers:INT    := 2;
+    numLocates:INT     := 100;
+    numPasses:INT      := 250;
+    numDynamicOps:INT  :=  2;
+    numStaticOps:INT   :=  2;
+
+    
+    -- Outer Loop
+    until numIterations=0 loop
+
+      -- Add entries to the database
+      -- OUT::s("adding...");
+      i:=0;
+      until i>=numFiles loop
+
+        -- Add Students
+        j:=0;
+        until i>=numFiles or j=numStudents loop
+          cs.add(STUDENT::create(i, "PAT", "SMITH"));
+          j:=j+1;
+          i:=i+1;
+        end;
+
+        -- Add Teachers
+        j:=0;
+        until i>=numFiles or j=numTeachers loop
+          cs.add(TEACHER::create(i, "PAT", "SMITH", 1000));
+          j:=j+1;
+          i:=i+1;
+        end;
+
+      end;
+
+      -- Locate the last item in the database numLocates times
+      -- OUT::s("locating...");
+      i:=0;
+      until i=numLocates loop
+        person := cs.locate(numFiles-1);
+        i:=i+1;
+      end;
+
+      -- Traverse the list numPasses time
+      -- OUT::s("traversing...");
+      i:=0;
+      until i=numPasses loop
+        cs.traverse(numDynamicOps,numStaticOps);
+        i:=i+1;
+      end;
+
+      -- Delete each file
+      -- OUT::s("deleting...").nl;
+      i:=0;
+      until i=numFiles loop
+        cs.delete(i);
+        i:=i+1;
+      end;
+
+      numIterations := numIterations-1;
+
+    end; -- loop
+
+  end; -- main
+
+end; -- class TESTIT
+

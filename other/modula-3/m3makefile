@@ -1,0 +1,14 @@
+
+/*  m3makefile for the database project */
+
+
+M3=/cs/research/gc/7135/sun4/bin/m3
+M3FLAGS=-w2 -make -why -O
+
+module(Teacher)
+module(Student)
+module(Database)
+module(Personnel)
+implementation(Main)
+program(Testit)
+

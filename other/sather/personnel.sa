@@ -1,0 +1,41 @@
+--
+-- PERSONNEL class
+--
+-- Personnel file implementation
+--
+
+class PERSONNEL is
+   private ssn:INT;
+   private firstname, lastname: STR;
+   private valid:INT;
+
+   -- Creation method
+   create(ssn:INT; fn,ln:STR):PERSONNEL is
+      res := new;
+      res.ssn       := ssn;
+      res.firstname := fn;
+      res.lastname  := ln;
+      res.valid     := 1;
+   end; -- create
+
+   -- Print a personnel file
+   print is 
+      OUT::s("ssn");
+      OUT::s(": ");
+      OUT::s(lastname);
+      OUT::s(", ");
+      OUT::s(firstname);
+   end; -- print
+
+   -- Return the ssn
+   getssn:INT is
+      res:=ssn;
+      return;
+   end; -- getssn
+
+   -- Void the entry
+   void_entry is
+     valid:=0;
+   end; -- void_entry
+   
+end; -- class PERSONNEL

@@ -1,0 +1,6 @@
+
+class DATARECORD is
+   ssn: INT;
+   fn:  STR;
+   ln:  STR;
+end;  -- class DATARECORD

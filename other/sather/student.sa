@@ -1,0 +1,59 @@
+--
+-- STUDENT class
+--
+-- Implementation of student files
+--
+
+class STUDENT is
+   PERSONNEL;		-- Inherit from PERSONNEL
+   nclasses:INT;	-- Add number of classes
+   classes:ARRAY{STR};	--     and the array of classes
+
+   -- Creation method
+   create(ssn:INT; fn,ln:STR):STUDENT is
+      res:=new;
+      res.ssn       := ssn;
+      res.firstname := fn;
+      res.lastname  := ln;
+      res.nclasses  := 0;
+      res.classes   := ARRAY{STR}::new(10);
+   end; -- create
+
+   -- Set up an alias for the print method of personnel files
+   -- so it can be used in the student print method
+   alias personnel_print print;
+
+   -- Print a student file
+   print is 
+      i:INT:=0;
+      self.personnel_print;
+      if nclasses = 0 then
+         OUT::s("    	-- Not Enrolled").nl;
+      else
+         OUT::s("    	-- Enrolled: ");
+         until i = nclasses loop
+            OUT::s(classes[i]);
+            OUT::s(" ");
+            i := i + 1;
+         end;
+         OUT::nl;
+      end;
+   end; -- print
+
+   -- Add a class
+   addclass(classname:STR) is
+      classes[nclasses]:=classname;
+      nclasses := nclasses + 1;
+   end; -- addclass
+
+   -- Unenroll a student
+   unenroll is
+      nclasses := 0;
+   end; -- unenroll
+
+   -- Void the entry
+   void_entry is
+     valid:=0;
+   end; -- void_entry
+   
+end; -- class STUDENT

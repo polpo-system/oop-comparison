@@ -1,0 +1,2 @@
+(source_files) database.sa personnel.sa student.sa teacher.sa main.sa
+(cc_flags)
